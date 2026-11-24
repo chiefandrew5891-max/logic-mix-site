@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "logic-mix",
+    "name": "Logic Mix",
+    "tagline": "@ui.sub",
+    "icon": "assets/logic-mix/icon.png",
+    "playStoreKey": "playStoreUrl",
+    "privacy": "privacy",
+    "terms": "terms",
+    "featured": true
+  }
+]
