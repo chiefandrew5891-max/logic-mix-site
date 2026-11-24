@@ -79,6 +79,18 @@ BRAND = "AKYneX Studio"
 MARK = next((p for p in ("assets/brand/logo-mark.png", "assets/brand/logo-mark.webp", "assets/brand/logo-mark.svg") if (ROOT / p).exists()), None)
 WIDE = next((p for p in ("assets/brand/logo-wide.png", "assets/brand/logo-wide.webp", "assets/brand/logo-wide.svg") if (ROOT / p).exists()), None)
 
+HAS_ICONS = (ROOT / "assets/brand/favicon-32.png").exists()
+
+
+def icons(root):
+    if not HAS_ICONS:
+        return ""
+    return (f'<link rel="icon" href="{root}favicon.ico" sizes="any">'
+            f'<link rel="icon" type="image/png" sizes="32x32" href="{root}assets/brand/favicon-32.png">'
+            f'<link rel="icon" type="image/png" sizes="192x192" href="{root}assets/brand/favicon-192.png">'
+            f'<link rel="apple-touch-icon" href="{root}assets/brand/apple-touch-icon.png">')
+
+
 CSS = """:root{--bg1:#0b1230;--bg2:#070c20;--bg3:#04060f;--cyan:#19c8ff;--blue:#2f6bff;--violet:#a23bff;--pink:#ff4fd8;--orange:#ffa21a;--gold:#f5c84b;--gold2:#ffe9a8;--fg:#e8edf8;--muted:#a3aec6;--card:rgba(255,255,255,.05);--line:rgba(120,160,255,.25)}
 *,*::before,*::after{-webkit-box-sizing:border-box;box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;background:#070c20;-webkit-tap-highlight-color:transparent}
 body{margin:0;min-height:100vh;min-height:100dvh;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;color:var(--fg);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);background-color:#070c20;background-image:radial-gradient(900px 500px at 85% 0,rgba(162,59,255,.22),transparent 60%),radial-gradient(800px 500px at 0 10%,rgba(25,200,255,.16),transparent 60%),linear-gradient(180deg,#0b1230,#070c20 45%,#04060f);background-repeat:no-repeat;background-size:100% 100%;font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","PingFang SC","Microsoft YaHei",sans-serif}
@@ -210,7 +222,7 @@ def layout(tag, page, body, title, cls=""):
 <html lang="{tag}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark"><meta name="theme-color" content="#070c20"><meta name="format-detection" content="telephone=no">
 <title>{html.escape(title)} — {BRAND}</title>{alts}
-<style>{CSS}</style><link rel="stylesheet" href="{root}style.css"></head>
+{icons(root)}<style>{CSS}</style><link rel="stylesheet" href="{root}style.css"></head>
 <body class="{cls}"><header><div class="wrap">{brand_html(tag, depth)}<nav aria-label="Main">{nav}</nav>
 <details class="lang"><summary aria-label="{u['lang']}">{u['name']} ▾</summary><div>{langs}</div></details></div></header>
 {body}
@@ -317,7 +329,7 @@ def build():
     tags = json.dumps({t.split("-")[0].lower(): t for t in LANGS})
     f["index.html"] = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>{BRAND}</title><meta http-equiv="refresh" content="3;url=en/index.html"><style>{CSS}</style><link rel="stylesheet" href="style.css"></head>
+<title>{BRAND}</title><meta http-equiv="refresh" content="3;url=en/index.html">{icons("")}<style>{CSS}</style><link rel="stylesheet" href="style.css"></head>
 <body><main><div class="wrap"><div class="hero"><h1>{BRAND}</h1><p>{links}</p></div></div></main>
 <script>var m={tags},l=(navigator.language||'en').split('-')[0].toLowerCase();location.replace((m[l]||'en')+'/index.html');</script></body></html>
 """

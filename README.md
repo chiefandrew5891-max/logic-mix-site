@@ -16,3 +16,6 @@ Official AKYneX Studio site (8 languages): studio home, game catalog, game pages
 Put `assets/brand/logo-mark.png` (hexagon mark, header/footer) and/or `assets/brand/logo-wide.png` (home hero), then run `python3 build.py`. Without them the header shows the text wordmark.
 
 Public URLs `/<lang>/privacy/` and `/<lang>/terms/` are used by Google Play, AdMob and the app: do not move them.
+
+## Favicon
+Save the square favicon PNG (512 px or larger) as `assets/brand/favicon.png`, run `python3 make_icons.py` (needs Pillow), then `python3 build.py`. It creates `favicon.ico`, 32/192/512 PNGs and the Apple touch icon, and links them in every page.
